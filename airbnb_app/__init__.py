@@ -7,6 +7,8 @@ from .routes import airbnb_routes
 
 load_dotenv()
 
+#test
+
 DB_FILEPATH = os.path.join(os.path.dirname(__file__), 'db.sqlite3')
 
 DB_URI = f'sqlite:////{DB_FILEPATH}' # using absolute filepath 
