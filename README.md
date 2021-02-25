@@ -1,4 +1,4 @@
-# Air-money-b
+# air-money-b
 Build Week webapp API for Optimal Airbnb Pricing
 👀 Product Vision Document
 This is the template for the Product Vision Document that teams complete after their initial icebreaker. The PVD is crucial to the planning phase and is mandatory for all groups to complete before starting their project.
