@@ -1,15 +1,22 @@
 import os
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
+import psycopg2
 
-from .models import DB, init_db
-from .routes import airbnb_routes
+from models import DB, init_db
+from routes import airbnb_routes
 
 load_dotenv()
 
-DB_FILEPATH = os.path.join(os.path.dirname(__file__), 'db.sqlite3')
+DB_NAME = os.getenv("DB_NAME")
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_HOST = os.getenv("DB_HOST")
 
-DB_URI = f'sqlite:////{DB_FILEPATH}' # using absolute filepath 
+connection = psycopg2.connect(dbname=DB_NAME, user=DB_USER, 
+                              password=DB_PASSWORD, host=DB_HOST)
+
 
 def create_app():
     app = Flask(__name__)
