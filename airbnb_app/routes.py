@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request, render_template , flash, redirect
-from .models import DB, User, Listing
+from models import DB, User, Listing
 from airbnb_optimize import get_optimal_pricing
 from os import getenv
 from dotenv import load_dotenv
