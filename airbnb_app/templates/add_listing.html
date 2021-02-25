@@ -1,0 +1,29 @@
+<!-- templates/add_listing.html -->
+
+{% extends "airbnb_op_layout.html" %} {% block content %}
+
+<h1>New Listing Page</h1>
+
+<p>Please fill out the form and submit to add a new listing for {{ user.name }}!</p>
+
+<form action="/listings/create" method="POST">
+
+    <label>Name:</label>
+    <input type="text" name="name" placeholder="Listing Name">
+
+    <label>Location:</label>
+    <input type="text" name="location" placeholder="Location" value="Location">
+
+    <label>Property Type:</label>
+    <input type="text" name="property_type" placeholder="property type" value="property_type">
+
+    <label>Room Type:</label>
+    <input type="text" name="room_type" placeholder="room_type" value="room_type">
+
+    <label>Min Nights:</label>
+    <input type="number" name="min_nights" placeholder="1" value="1">
+
+
+    <button name="user_id" value={{ user.id }}>Submit</button>
+</form>
+{% endblock %}

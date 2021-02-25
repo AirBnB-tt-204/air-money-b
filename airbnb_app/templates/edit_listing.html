@@ -1,0 +1,30 @@
+<!-- templates/edit_listing.html -->
+
+{% extends "airbnb_op_layout.html" %} {% block content %}
+
+<h1>Edit Listing Page</h1>
+
+<p>Please edit the listing and submit!</p>
+
+<form action="/listings/modify" method="POST">
+
+    <label>Name:</label>
+    <input type="text" name="name" placeholder={{ listing[ 'name'] }} value={{ listing[ 'name'] }}>
+
+    <label>Location:</label>
+    <input type="text" name="location" placeholder="{{ listing[ 'location'] }}" value="{{ listing[ 'location'] }}">
+
+    <label>Property Type:</label>
+    <input type="text" name="property_type" placeholder="{{ listing[ 'property_type'] }}" value="{{ listing[ 'property_type'] }}">
+
+    <label>Room Type:</label>
+    <input type="text" name="room_type" placeholder="{{ listing[ 'room_type'] }}" value="{{ listing[ 'room_type'] }}">
+
+    <label>Min Nights:</label>
+    <input type="number" name="min_nights" placeholder={{ listing[ 'min_nights'] }} value={{ listing[ 'min_nights'] }}>
+
+    <input type="hidden" name="user_id" value={{ listing[ 'user_id'] }}>
+
+    <button name="id" value={{ listing[ 'id'] }}>Submit</button>
+</form>
+{% endblock %}
