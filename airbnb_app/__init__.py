@@ -1,19 +1,21 @@
 import os
 import psycopg2
+import logging
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 
-from models import DB, init_db
-from routes import airbnb_routes
+from .models import DB, init_db
+from .routes import airbnb_routes
 
 load_dotenv()
 
+'''Allows detailed error logs on Heroku'''
+gunicorn_logger = logging.getLogger('gunicorn.error')
+app.logger.handlers = gunicorn_logger.handlers
+app.logger.setLevel(gunicorn_logger.level)
 
-# database_uri = 'postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}'
-
-# DB_FILEPATH = os.path.join(os.path.dirname(__file__), 'db.sqlite3')
-
+'''Connects to Postgres database'''
 DB_URI = 'postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}'.format(
     DB_NAME = os.getenv("DB_NAME"),
     DB_HOST = os.getenv("DB_HOST"),
