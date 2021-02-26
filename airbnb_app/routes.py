@@ -4,6 +4,10 @@ Flask routes for the airbnb app
 from flask import Blueprint, request, render_template, flash, redirect
 from .models import DB, User, Listing
 from .airbnb_optimize import get_optimal_pricing
+from os import getenv
+from dotenv import load_dotenv
+
+load_dotenv()
 
 airbnb_routes = Blueprint("airbnb_routes", __name__)
 
