@@ -10,6 +10,8 @@ from .routes import airbnb_routes
 
 load_dotenv()
 
+app = Flask(__name__)
+
 '''Allows detailed error logs on Heroku'''
 gunicorn_logger = logging.getLogger('gunicorn.error')
 app.logger.handlers = gunicorn_logger.handlers
@@ -24,7 +26,6 @@ DB_URI = 'postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}'.for
 )
 
 def create_app():
-    app = Flask(__name__)
 
     app.secret_key = os.urandom(42)
 
