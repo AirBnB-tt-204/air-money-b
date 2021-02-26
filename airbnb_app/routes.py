@@ -94,7 +94,7 @@ def modify_listings():
     for attr in request.form:
         setattr(listing, attr, request.form[attr])
 
-    # Get the (poentially) new optimal listing price
+    # Get the (potentially) new optimal listing price
     listing.price = get_optimal_pricing(**request.form)
 
     # Commit the changes to the DB.
