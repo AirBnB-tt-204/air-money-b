@@ -6,8 +6,8 @@ import psycopg2
 from flask import Flask
 from dotenv import load_dotenv
 
-from models import DB, init_db
-from routes import airbnb_routes
+from .models import DB, init_db
+from .routes import airbnb_routes
 
 load_dotenv()
 
