@@ -1,3 +1,6 @@
+'''
+Create and initialize Flask app and SQLAlchemy database.
+'''
 import os
 from flask import Flask
 from dotenv import load_dotenv
@@ -9,9 +12,13 @@ load_dotenv()
 
 DB_FILEPATH = os.path.join(os.path.dirname(__file__), 'db.sqlite3')
 
-DB_URI = f'sqlite:////{DB_FILEPATH}' # using absolute filepath 
+DB_URI = f'sqlite:////{DB_FILEPATH}'  # using absolute filepath
+
 
 def create_app():
+    '''
+    Create flask app.
+    '''
     app = Flask(__name__)
 
     app.secret_key = os.urandom(42)
@@ -19,13 +26,15 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = DB_URI
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     DB.init_app(app)
-    
-    app.register_blueprint(airbnb_routes)    
+
+    app.register_blueprint(airbnb_routes)
     return app
+
 
 APP = create_app()
 init_db(APP)
-        
+
+
 if __name__ == "__main__":
 
     my_app = create_app()
