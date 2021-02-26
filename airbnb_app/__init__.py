@@ -25,11 +25,13 @@ app.logger.setLevel(gunicorn_logger.level)
 #     DB_PASSWORD = os.getenv("DB_PASSWORD")
 # )
 
+DB_URI = os.getenv("DATABASE_URL")
+
 def create_app():
 
     app.secret_key = os.urandom(42)
 
-    app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
+    app.config["SQLALCHEMY_DATABASE_URI"] = DB_URI
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     DB.init_app(app)
     
