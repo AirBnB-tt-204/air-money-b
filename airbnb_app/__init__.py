@@ -12,13 +12,6 @@ from .routes import airbnb_routes
 
 load_dotenv()
 
-app = Flask(__name__)
-
-'''Allows detailed error logs on Heroku'''
-gunicorn_logger = logging.getLogger('gunicorn.error')
-app.logger.handlers = gunicorn_logger.handlers
-app.logger.setLevel(gunicorn_logger.level)
-
 '''Connects to Heroku PostgreSQL'''
 DB_URI = os.getenv("DATABASE_URL")
 
