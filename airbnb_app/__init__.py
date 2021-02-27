@@ -24,6 +24,13 @@ DB_URI = os.getenv("DATABASE_URL")
 
 def create_app():
 
+app = Flask(__name__)
+
+    '''Allows detailed error logs on Heroku'''
+    gunicorn_logger = logging.getLogger('gunicorn.error')
+    app.logger.handlers = gunicorn_logger.handlers
+    app.logger.setLevel(gunicorn_logger.level)
+
     app.secret_key = os.urandom(42)
 
     app.config["SQLALCHEMY_DATABASE_URI"] = DB_URI
