@@ -24,7 +24,7 @@ DB_URI = os.getenv("DATABASE_URL")
 
 def create_app():
 
-app = Flask(__name__)
+    app = Flask(__name__)
 
     '''Allows detailed error logs on Heroku'''
     gunicorn_logger = logging.getLogger('gunicorn.error')
