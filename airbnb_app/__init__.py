@@ -3,6 +3,7 @@ Create and initialize Flask app and SQLAlchemy database.
 '''
 import os
 import psycopg2
+import logging
 from flask import Flask
 from dotenv import load_dotenv
 
@@ -11,22 +12,17 @@ from .routes import airbnb_routes
 
 load_dotenv()
 
-
-# DB_URI = 'postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}'
-
-DB_NAME = os.getenv("DB_NAME")
-DB_HOST = os.getenv("DB_HOST")
-DB_USER = os.getenv("DB_USER")
-DB_PASSWORD = os.getenv("DB_PASSWORD")
-
-DB_URI = f'postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}'
-
+'''Connects to Heroku PostgreSQL'''
+DB_URI = os.getenv("DATABASE_URL")
 
 def create_app():
-    '''
-    Create flask app.
-    '''
+
     app = Flask(__name__)
+
+    '''Allows detailed error logs on Heroku'''
+    gunicorn_logger = logging.getLogger('gunicorn.error')
+    app.logger.handlers = gunicorn_logger.handlers
+    app.logger.setLevel(gunicorn_logger.level)
 
     app.secret_key = os.urandom(42)
 
