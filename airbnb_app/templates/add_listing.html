@@ -1,49 +1,131 @@
-<!-- templates/add_listing.html -->
-
-{% extends "airbnb_op_layout.html" %} {% block content %}
-
-<h1>New Listing Page</h1>
-
-<p>Please fill out the form and submit to add a new listing for {{ user.name }}!</p>
-
-<form action="/listings/create" method="POST">
-
-    <label>Name:</label>
-    <input type="text" name="name" placeholder="Listing Name">
-
-    <label>Location:</label>
-    <!-- <input type="text" name="location" placeholder="Location" value="Location"> -->
-
-    <select name="location">
-        <option disabled selected value> -- select an option -- </option>
-         <option value="New York City">New York City</option>
-         <option value="Los Angeles">Los Angeles</option>
-    </select>
-
-    <label>Property Type:</label>
-    <!-- <input type="text" name="property_type" placeholder="property type" value="property_type"> -->
-    <select name="property_type">
-        <option disabled selected value> -- select an option -- </option>
-         <option value="Apartment">Apartment</option>
-         <option value="House">House</option>
-         <option value="Condominium">Condominium</option>
-         <option value="Townhouse">Townhouse</option>
-         <option value="Loft">Loft</option>
-    </select>
-
-    <label>Room Type:</label>
-    <!-- <input type="text" name="room_type" placeholder="room_type" value="room_type"> -->
-    <select name="room_type">
-        <option disabled selected value> -- select an option -- </option>
-         <option value="Entire home/apt">Entire home/apt</option>
-         <option value="Private room">Private room</option>
-         <option value="Shared room">Shared room</option>
-    </select>
-
-    <label>Min Nights:</label>
-    <input type="number" name="min_nights" placeholder="1" value="1">
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 
 
-    <button name="user_id" value={{ user.id }}>Submit</button>
-</form>
-{% endblock %}
+<html>
+	<head>
+		<title>Elements Add User - AirMoneyB</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="users.html" class="logo"><strong>Air</strong><span>Money</span><strong>B</strong></a>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<ul class="links">
+							<li><a href="users.html">Home</a></li>
+							<li><a href="landing.html">Landing</a></li>
+							<li><a href="generic.html">Generic</a></li>
+							<li><a href="elements.html">Elements</a></li>
+						</ul>
+					</nav>
+                    
+                    <!-- Main -->
+                        <div id="main" class="alt">
+
+                        <!-- Header -->
+							<section id="one">
+								<div class="inner">
+									<header class="major">
+										<h1>New Listings</h1>
+									</header>
+
+                        <!-- Content -->
+							<h2 id="content"></h2>
+								<p>Fill out the form and submit to add a new listing for {{ user.name }}!.</p>	
+                                
+                                <form action="/listings/create" method="POST">
+                                    <div class="row gtr-uniform">
+                                        <div class="col-6 col-12-xsmall">
+                                            <label>Listing Name:</label>
+                                            <input type="text" name="name" placeholder="Listing Name">
+										</div>	
+                                            
+                                        <div class="col-6 col-12-xsmall">
+											<label>Location:</label>
+                                            <select name="location">
+                                                <option disabled selected value> -- select an option -- </option>
+                                                <option value="New York City">New York City</option>
+                                                <option value="Los Angeles">Los Angeles</option>                                           
+                                            </select>
+										</div>
+
+										<div class="col-6 col-12-xsmall">
+                                            <label>Property Type:</label>
+                                            <select name="property_type">
+                                                <option disabled selected value> -- select an option -- </option>
+                                                <option value="Apartment">Apartment</option>
+                                                <option value="House">House</option>
+                                                <option value="Condominium">Condominium</option>
+                                                <option value="Townhouse">Townhouse</option>
+                                                <option value="Loft">Loft</option>
+                                            </select>
+										</div>
+
+										<div class="col-6 col-12-xsmall">
+                                            <label>Room Type:</label>
+                                            <select name="room_type">
+                                                <option disabled selected value> -- select an option -- </option>
+                                                <option value="Entire home/apt">Entire home/apt</option>
+                                                <option value="Private room">Private room</option>
+                                                <option value="Shared room">Shared room</option>
+                                            </select>
+										</div>
+
+										<div class="col-6 col-12-xsmall">
+                                            <label>Min Nights:</label>
+                                            <input type="number" name="min_nights" placeholder="1" value="1">
+                                        </div>
+                                        
+
+										<div></div>
+
+										<ul class="actions">
+											<li><button style="vertical-align: -40px;" name="user_id" value={{ user.id }} class="button primary">Submit</button></li>
+										</ul>
+									
+                                    </div>
+                                </form>	
+				
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<ul class="icons">
+								<li><a href="https://github.com/AirBnB-tt-204/air-money-b" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+							</ul>
+							<ul class="copyright">
+								<li>&copy; Copyright 2021 </li><li>AirMoneyB: Temsy Chen, Srini Nariangadu, Paul Teeter and Jose Urena </a></li><li>HTML Design: <a href="https://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="./assets/js/jquery.min.js"></script>
+			<script src="./assets/js/jquery.scrolly.min.js"></script>
+			<script src="./assets/js/jquery.scrollex.min.js"></script>
+			<script src="./assets/js/browser.min.js"></script>
+			<script src="./assets/js/breakpoints.min.js"></script>
+			<script src="./assets/js/util.js"></script>
+			<script src="./assets/js/main.js"></script>
+
+	</body>
+</html>

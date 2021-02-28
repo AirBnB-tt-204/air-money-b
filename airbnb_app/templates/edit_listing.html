@@ -1,46 +1,131 @@
-<!-- templates/edit_listing.html -->
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 
-{% extends "airbnb_op_layout.html" %} {% block content %}
 
-<h1>Edit Listing Page</h1>
+<html>
+	<head>
+		<title>Edit Listings - AirMoneyB</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
 
-<p>Please edit the listing and submit!</p>
+		<!-- Wrapper -->
+			<div id="wrapper">
 
-<form action="/listings/modify" method="POST">
+				<!-- Header -->
+					<header id="header">
+						<a href="users.html" class="logo"><strong>Air</strong><span>Money</span><strong>B</strong></a>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
 
-    <label>Name:</label>
-    <input type="text" name="name" placeholder={{ listing[ 'name'] }} value={{ listing[ 'name'] }}>
+				<!-- Menu -->
+					<nav id="menu">
+						<ul class="links">
+							<li><a href="users.html">Home</a></li>
+							<li><a href="landing.html">Landing</a></li>
+							<li><a href="generic.html">Generic</a></li>
+							<li><a href="elements.html">Elements</a></li>
+						</ul>
+					</nav>
+                    
+                    <!-- Main -->
+                        <div id="main" class="alt">
 
-    <label>Location:</label>
-    <select name="location">
-        <option disabled selected value><li>{{ listing['location'] }}</li></option>
-         <option value="New York City">New York City</option>
-         <option value="Los Angeles">Los Angeles</option>
-    </select>
+                        <!-- Header -->
+							<section id="one">
+								<div class="inner">
+									<header class="major">
+										<h1>Edit Listings</h1>
+									</header>
 
-    <label>Property Type:</label>
-    <select name="property_type">
-        <option disabled selected value><li>{{ listing['property_type'] }}</li></option>
-         <option value="Apartment">Apartment</option>
-         <option value="House">House</option>
-         <option value="Condominium">Condominium</option>
-         <option value="Townhouse">Townhouse</option>
-         <option value="Loft">Loft</option>
-    </select>
+                        <!-- Content -->
+							<h2 id="content"></h2>
+								<p>Edit the listings and submit</p>	
+                                
+                                <form action="/listings/modify" method="POST">
 
-    <label>Room Type:</label>
-    <select name="room_type">
-        <option disabled selected value><li>{{ listing['room_type'] }}</li></option>
-         <option value="Entire home/apt">Entire home/apt</option>
-         <option value="Private room">Private room</option>
-         <option value="Shared room">Shared room</option>
-    </select>
+                                <div class="row gtr-uniform">
+                                    <div class="col-6 col-12-xsmall">
+                                    		<label>Listing Name:</label>
+                                    		<input type="text" name="name" placeholder={{ listing[ 'name'] }} value={{ listing[ 'name'] }}>	
+									</div>
 
-    <label>Min Nights:</label>
-    <input type="number" name="min_nights" placeholder={{ listing[ 'min_nights'] }} value={{ listing[ 'min_nights'] }}>
+									<div class="col-6 col-12-xsmall">	
+										<label>Location:</label>
+										<select name="location">
+											<option disabled selected value><li>{{ listing['location'] }}</li></option>
+											<option value="New York City">New York City</option>
+											<option value="Los Angeles">Los Angeles</option>
+										</select>
+									</div>
+                                
+									<div class="col-6 col-12-xsmall">
+										<label>Property Type:</label>
+										<select name="property_type">
+											<option disabled selected value><li>{{ listing['property_type'] }}</li></option>
+											<option value="Apartment">Apartment</option>
+											<option value="House">House</option>
+											<option value="Condominium">Condominium</option>
+											<option value="Townhouse">Townhouse</option>
+											<option value="Loft">Loft</option>
+										</select>
+									</div>
 
-    <input type="hidden" name="user_id" value={{ listing[ 'user_id'] }}>
+									<div class="col-6 col-12-xsmall">
+										<label>Room Type:</label>
+										<select name="room_type">
+											<option disabled selected value><li>{{ listing['room_type'] }}</li></option>
+											<option value="Entire home/apt">Entire home/apt</option>
+											<option value="Private room">Private room</option>
+											<option value="Shared room">Shared room</option>
+										</select>
+									</div>
+                                
+									<div class="col-6 col-12-xsmall">
+										<label>Min Nights:</label>
+										<input type="number" name="min_nights" placeholder={{ listing[ 'min_nights'] }} value={{ listing[ 'min_nights'] }}>
+									</div>
+									
+                                    <input type="hidden" name="user_id" value={{ listing[ 'user_id'] }}>
+                                
 
-    <button name="id" value={{ listing[ 'id'] }}>Submit</button>
-</form>
-{% endblock %}
+									<ul class="actions">
+										<li><button style="vertical-align: -40px;" name="id" value={{ listing[ 'id'] }} class="button primary">Submit</button></li>
+									</ul>
+                                
+                                </form>
+				
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<ul class="icons">
+								<li><a href="https://github.com/AirBnB-tt-204/air-money-b" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+							</ul>
+							<ul class="copyright">
+								<li>&copy; Copyright 2021 </li><li>AirMoneyB: Temsy Chen, Srini Nariangadu, Paul Teeter and Jose Urena </a></li><li>HTML Design: <a href="https://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="./assets/js/jquery.min.js"></script>
+			<script src="./assets/js/jquery.scrolly.min.js"></script>
+			<script src="./assets/js/jquery.scrollex.min.js"></script>
+			<script src="./assets/js/browser.min.js"></script>
+			<script src="./assets/js/breakpoints.min.js"></script>
+			<script src="./assets/js/util.js"></script>
+			<script src="./assets/js/main.js"></script>
+
+	</body>
+</html>
