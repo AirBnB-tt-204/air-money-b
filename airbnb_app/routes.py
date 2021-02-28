@@ -25,7 +25,7 @@ def list_users():
 
 @airbnb_routes.route("/users/add")
 def add_user():
-    return render_template("add_user.html")
+    return render_template("elements_add_user.html")
 
 
 @airbnb_routes.route("/users/create", methods=["POST"])
