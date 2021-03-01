@@ -7,8 +7,8 @@
 		<title>Users Page - AirMoneyB</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<link rel="stylesheet" href="/static/assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="/static/assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="is-preload">
 
@@ -48,12 +48,12 @@
 									</header>
 
 									<!-- Content -->									
-                                        if users
+                                        {% if users %}
                                         <ol>
-                                            for user in users
+                                            {% for user in users %}
                                             <li>{{ user['name'] }}
                                                 <ol>
-                                                    for listing in (user['listings']|sort(reverse=true,attribute='id'))[:5]
+                                                    {% for listing in (user['listings']|sort(reverse=true,attribute='id'))[:5] %}
                                                     <li>{{ listing['name'] }}
                                                         <ul>
                                                             <li>{{ listing['location'] }}</li>
@@ -69,16 +69,16 @@
                                                             <button name="listing" value={{ listing[ 'id'] }}>Delete Listing</button>
                                                         </form>
                                                     </li>
-                                                    
+                                                    {% endfor %}
                                                 </ol>
                                                 <form action="/listings/add" method="POST">
                                                     <button name="user" value={{ user[ 'id']}}>Add Listing</button>
                                                 </form>
                                             </li>
-                                           
+                                            {% endfor %}
                                         </ol>
 
-                                        else 
+                                        {% else %} 
                                         <p>Users not found.</p>
                                         {% endif %}
 
