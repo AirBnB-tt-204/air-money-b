@@ -5,6 +5,7 @@ from flask import Blueprint, request, render_template, flash, redirect
 from .models import DB, User, Listing
 from .airbnb_optimize import get_optimal_pricing
 
+
 airbnb_routes = Blueprint("airbnb_routes", __name__)
 
 

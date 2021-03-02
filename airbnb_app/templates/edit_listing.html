@@ -12,14 +12,30 @@
     <input type="text" name="name" placeholder={{ listing[ 'name'] }} value={{ listing[ 'name'] }}>
 
     <label>Location:</label>
-    <input type="text" name="location" placeholder="{{ listing[ 'location'] }}" value="{{ listing[ 'location'] }}">
+    <select name="location">
+        <option disabled selected value> -- select an option -- </option>
+         <option value="New York City">New York City</option>
+         <option value="Los Angeles">Los Angeles</option>
+    </select>
 
     <label>Property Type:</label>
-    <input type="text" name="property_type" placeholder="{{ listing[ 'property_type'] }}" value="{{ listing[ 'property_type'] }}">
+    <select name="property_type">
+        <option disabled selected value> -- select an option -- </option>
+         <option value="Apartment">Apartment</option>
+         <option value="House">House</option>
+         <option value="Condominium">Condominium</option>
+         <option value="Townhouse">Townhouse</option>
+         <option value="Loft">Loft</option>
+    </select>
 
     <label>Room Type:</label>
-    <input type="text" name="room_type" placeholder="{{ listing[ 'room_type'] }}" value="{{ listing[ 'room_type'] }}">
-
+    <select name="room_type">
+        <option disabled selected value> -- select an option -- </option>
+         <option value="Entire home/apt">Entire home/apt</option>
+         <option value="Private room">Private room</option>
+         <option value="Shared room">Shared room</option>
+    </select>
+    
     <label>Min Nights:</label>
     <input type="number" name="min_nights" placeholder={{ listing[ 'min_nights'] }} value={{ listing[ 'min_nights'] }}>
 
