@@ -13,14 +13,6 @@ Model = None
 MMS = None
 Encoder = None
 
-Cities = ['Asheville', 'Austin', 'Boston', 'Broward County', 'Cambridge',
-        'Chicago', 'Clark County', 'Columbus', 'Denver', 'Hawaii',
-        'Jersey City', 'Los Angeles', 'Nashville', 'New Orleans',
-        'New York City', 'Oakland', 'Pacific Grove', 'Portland',
-        'Rhode Island', 'Salem', 'San Clara Country', 'San Diego',
-        'San Francisco', 'San Mateo County', 'Santa Cruz County',
-        'Seattle', 'Twin Cities MSA', 'Washington D.C.']
-
 city_neighborhood_lists = None
 
 listing_params = {
@@ -38,11 +30,19 @@ def init_city_neighborhood_info():
         old_limit = field_size_limit(maxsize)
         
         for city in cities:
-            city_neighborhood_lists[city['city']] = list(set(eval(city['neighborhood_list'])))
+            # We convert to set to remove duplicate neighborhood names
+            # and back to list to enable conversion to JSON - json.dumps()
+            # cannot handle set objects.
+            neighs = list(set(eval(city['neighborhood_list'])))
+            neighs.sort()
+            city_neighborhood_lists[city['city']] = neighs
       
         field_size_limit(old_limit)
 
+
     listing_params['cities'] = list(city_neighborhood_lists.keys())
+    
+    #Convert city_neighborhood_lists to JSON for use by Javascript
     listing_params['city_neigh'] = dumps(city_neighborhood_lists)
 
     print(city_neighborhood_lists.keys(), len(city_neighborhood_lists.keys()))
@@ -68,18 +68,20 @@ def get_optimal_pricing(**listing):
     print(listing)
 
     cat_cols = np.array([[listing['neighborhood'], listing['room_type'], listing['city']]])
-    num_cols = np.array([[listing['availability_365'], listing['minimum_nights']]])
+    num_cols = np.array([[int(listing['availability_365']), int(listing['minimum_nights'])]])
 
     print(f'{cat_cols=} {num_cols=}')
-    '''
+    
     s1 = Encoder.transform(cat_cols)
 
     array_joined = np.append(s1, num_cols, axis=1)
 
     transformed = MMS.transform(array_joined)
 
-    price = Model.predict(transformed)[0][0]
-    '''
-    price = 100
+    prediction = Model.predict(transformed)
+    
+    #SQLAlchemy complains about  type 'numpy.float32'
+    #Convert to float
+    price = float(prediction[0][0])
     
     return price
