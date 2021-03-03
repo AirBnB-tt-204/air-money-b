@@ -5,6 +5,8 @@ from flask import Blueprint, request, render_template, flash, redirect
 from .models import DB, User, Listing
 from .airbnb_optimize import get_optimal_pricing
 
+import uuid
+
 
 airbnb_routes = Blueprint("airbnb_routes", __name__)
 
@@ -40,7 +42,7 @@ def create_user():
     if user := User.query.filter(User.name == name).first() is None:
         # create user based on the name passed via request
 
-        user = User(name=name)
+        user = User(id=uuid.uuid4, name=name)
         DB.session.add(user)
         DB.session.commit()
         flash(f"User {user.name} created successfully!", "success")
@@ -60,8 +62,10 @@ def add_listing():
 @airbnb_routes.route("/listings/create", methods=["POST"])
 def create_listings():
 
+    new_id = uuid.uuid4()
+
     print(request.form)
-    listing = Listing(**request.form,
+    listing = Listing(id=new_id, **request.form,
                       price=get_optimal_pricing(**request.form))
 
     DB.session.add(listing)
