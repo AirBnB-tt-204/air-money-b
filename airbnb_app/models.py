@@ -18,7 +18,7 @@ class User(DB.Model):  # user Table
 
 class Listing(DB.Model):  # listing Table
     """Listings corresponding to Users"""
-    id = DB.Column(DB.uuid, primary_key=True)  # id column
+    id = DB.Column(DB.uuid4, primary_key=True)  # id column
     name = DB.Column(DB.String, nullable=False)
     property_type = DB.Column(DB.String, nullable=False)
     room_type = DB.Column(DB.String, nullable=False)
