@@ -2,6 +2,7 @@
 
 {% extends "airbnb_op_layout.html" %} {% block content %}
 
+
 <h1>New Listing Page</h1>
 
 <p>Please fill out the form and submit to add a new listing for {{ user.name }}!</p>
@@ -11,14 +12,17 @@
     <label>Name:</label>
     <input type="text" name="name" placeholder="Listing Name">
 
-    <label>Location:</label>
-    <!-- <input type="text" name="location" placeholder="Location" value="Location"> -->
-
-    <select name="city">
+    <label>City:</label>
+    <select id="city" name="city">
         <option disabled selected value> -- select an option -- </option>
         {% for city in cities %}
         <option value="{{city}}">{{city}}</option>
         {% endfor %}
+    </select>
+
+    <label>Neighborhood:</label>
+    <select id="neighborhood" name="neighborhood">
+        <option disabled selected value> -- select an option -- </option>
     </select>
 
     <label>Property Type:</label>
@@ -26,7 +30,7 @@
     <select name="property_type">
         <option disabled selected value> -- select an option -- </option>
         {% for property_type in property_types %}
-        <option value="{{property_type}}">"{{property_type}}"</option>
+        <option value="{{property_type}}">{{property_type}}</option>
         {% endfor %}
     </select>
 
@@ -35,7 +39,7 @@
     <select name="room_type">
         <option disabled selected value> -- select an option -- </option>
         {% for room_type in room_types %}
-        <option value="{{room_type}}">"{{room_type}}"</option>
+        <option value="{{room_type}}">{{room_type}}</option>
         {% endfor %}
     </select>
 
@@ -47,4 +51,40 @@
 
     <button name="user_id" value={{ user.id }}>Submit</button>
 </form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+  $("document").ready(function(){
+    // Map your choices to your option value
+    var lookup = {{ city_neigh | safe }};
+
+    function render_neigh(selectValue) {
+
+	var neighs = lookup[selectValue];
+
+	// Empty the target field
+        $('#neighborhood').empty();
+
+	// For each chocie in the selected option
+        for (i = 0; i < neighs.length; i++) {
+            // Output choice in the target field
+            $('#neighborhood').append("<option value='" + neighs[i] + "'>" + neighs[i] + "</option>");
+        }
+    }
+
+      
+    // When an option is changed, search the above for matching choices
+    $('#city').on('change', function() {
+
+        // Set selected option as variable
+        var selectValue = $(this).val();
+
+        console.log(selectValue)
+
+        render_neigh(selectValue)
+    });
+  });
+</script>
 {% endblock %}
+
+

@@ -16,6 +16,8 @@ load_dotenv()
 '''Connects to Heroku PostgreSQL'''
 DB_URI = os.getenv("DATABASE_URL")
 
+print(DB_URI)
+
 def create_app():
 
     app = Flask(__name__)

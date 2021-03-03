@@ -2,7 +2,7 @@
 from os import path
 from sys import maxsize
 from csv import DictReader, field_size_limit
-
+from json import dumps
 
 import numpy as np
 
@@ -38,18 +38,19 @@ def init_city_neighborhood_info():
         old_limit = field_size_limit(maxsize)
         
         for city in cities:
-            city_neighborhood_lists[city['city']] = set(eval(city['neighborhood_list']))
+            city_neighborhood_lists[city['city']] = list(set(eval(city['neighborhood_list'])))
       
         field_size_limit(old_limit)
 
-    listing_params['cities'] = city_neighborhood_lists.keys()
-    listing_params['city_neigh'] = city_neighborhood_lists
+    listing_params['cities'] = list(city_neighborhood_lists.keys())
+    listing_params['city_neigh'] = dumps(city_neighborhood_lists)
 
     print(city_neighborhood_lists.keys(), len(city_neighborhood_lists.keys()))
     
     
 def init_optimal_price_model():
     # Load Serialized Model to Reuse:
+    global Model, MMS, Encoder
 
     with open(path.join(path.dirname(__file__),'model/nn.json'), 'r') as json_file:
         Model = model_from_json(json_file.read())
@@ -59,14 +60,18 @@ def init_optimal_price_model():
     # Load Transformations:
     MMS = load(path.join(path.dirname(__file__),'model/MMS.gz'))
     Encoder = load(path.join(path.dirname(__file__),'model/encoder.gz'))
+    
 
 def get_optimal_pricing(**listing):
+    global Encoder, MMS, Model
     
     print(listing)
 
     cat_cols = np.array([[listing['neighborhood'], listing['room_type'], listing['city']]])
     num_cols = np.array([[listing['availability_365'], listing['minimum_nights']]])
 
+    print(f'{cat_cols=} {num_cols=}')
+    '''
     s1 = Encoder.transform(cat_cols)
 
     array_joined = np.append(s1, num_cols, axis=1)
@@ -74,6 +79,7 @@ def get_optimal_pricing(**listing):
     transformed = MMS.transform(array_joined)
 
     price = Model.predict(transformed)[0][0]
-
+    '''
+    price = 100
     
     return price
