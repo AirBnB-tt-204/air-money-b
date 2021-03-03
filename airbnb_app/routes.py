@@ -40,7 +40,7 @@ def create_user():
     if user := User.query.filter(User.name == name).first() is None:
         # create user based on the name passed via request
 
-        user = User(id=len(users)+1, name=name)
+        user = User(name=name)
         DB.session.add(user)
         DB.session.commit()
         flash(f"User {user.name} created successfully!", "success")
