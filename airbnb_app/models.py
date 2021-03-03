@@ -2,14 +2,13 @@
 SQLAlchemy ORM models
 '''
 from flask_sqlalchemy import SQLAlchemy
-import uuid
 
 DB = SQLAlchemy()
 
 
 class User(DB.Model):  # user Table
     """ Property Owners/Managers corresponding to Listings"""
-    id = DB.Column(DB.uuid4, primary_key=True)  # id column
+    id = DB.Column(DB.Integer, primary_key=True)  # id column
     name = DB.Column(DB.String, nullable=False)  # name column
 
     def __repr__(self):
@@ -18,7 +17,7 @@ class User(DB.Model):  # user Table
 
 class Listing(DB.Model):  # listing Table
     """Listings corresponding to Users"""
-    id = DB.Column(DB.uuid4, primary_key=True)  # id column
+    id = DB.Column(DB.Integer, primary_key=True)  # id column
     name = DB.Column(DB.String, nullable=False)
     property_type = DB.Column(DB.String, nullable=False)
     room_type = DB.Column(DB.String, nullable=False)
