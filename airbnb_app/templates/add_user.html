@@ -1,16 +1,28 @@
 <!-- templates/add_user.html -->
 
-{% extends "airbnb_op_layout.html" %} {% block content %}
+{% extends "airbnb_op_layout.html" %}{% block content %}
 
-<h1>New User Page</h1>
+<!-- Main -->
+    <div id="main" class="alt">
+        <!-- One -->
+            <section id="one">
+                <div class="inner">
+                    <header class="major">
+                        <h1>New Users</h1>
+                    </header>
 
-<p>Please fill out the form and submit to add a new user!</p>
+                    <!-- Content -->
+                        <h2 id="content"></h2>
+                        <p>Let's get started! Please enter a username.</p>								                          
+                            <form action="/users/create" method="POST">
+                                <div class="row gtr-uniform">
+                                    <div class="col-12">                                        
+                                        <input type="text" name="name" placeholder="Username" value="User ID">
+                                    </div>										
+                                </div>
+                            </form>																					
+                </div>
+            </section>
+    </div>
 
-<form action="/users/create" method="POST">
-
-    <label>User:</label>
-    <input type="text" name="name" placeholder="User ID" value="User ID">
-
-    <button>Submit</button>
-</form>
 {% endblock %}

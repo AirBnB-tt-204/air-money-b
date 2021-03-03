@@ -58,6 +58,7 @@ matplotlib = "*"
 xgboost = "*"
 tensorflow = "*"
 scikit-learn = "==0.22.2.post1"
+uuid = "*"
 
 [dev-packages]
 

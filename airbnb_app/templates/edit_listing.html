@@ -1,67 +1,98 @@
 <!-- templates/edit_listing.html -->
 
-{% extends "airbnb_op_layout.html" %} {% block content %}
 
-<h1>Edit Listing Page</h1>
+{% extends "airbnb_op_layout.html" %}{% block content %}
 
-<p>Please edit the listing and submit!</p>
-
-<form action="/listings/modify" method="POST">
-
-    <label>Name:</label>
-    <input type="text" name="name" placeholder={{ listing[ 'name'] }} value={{ listing[ 'name'] }}>
-
-    <label>City:</label>
-    <!-- <input type="text" name="location" placeholder="Location" value="Location"> -->
-
-    <select id="city" name="city">
-        {% for city in cities %}
-            {% if city == listing['city' ]%}
-                <option value="{{city}}" selected>{{city}}</option>
-            {% else %}
-                <option value="{{city}}">{{city}}</option>
-            {% endif %}
-        {% endfor %}
-    </select>
-
-    <label>Neighborhood:</label>
-    <select id="neighborhood" name="neighborhood">
-        <option disabled selected value> -- select an option -- </option>
-    </select>
-
-    <label>Property Type:</label>
-    <select name="property_type">
-        {% for property_type in property_types %}
-            {% if property_type == listing['property_type'] %}
-                <option value="{{property_type}}" selected >{{property_type}}</option>
-            {% else %}
-                <option value="{{property_type}}">{{property_type}}</option>
-            {% endif %}
-        {% endfor %}
-    </select>
-
-    <label>Room Type:</label>
-    <select name="room_type">
-        {% for room_type in room_types %}
-            {% if room_type == listing['room_type'] %}
-                <option value="{{room_type}}" selected >{{room_type}}</option>
-            {% else %}
-                <option value="{{room_type}}">{{room_type}}</option>
-            {% endif %}
-        {% endfor %}
-    </select>
-
-
-    <label>Minimum Nights:</label>
-    <input type="number" name="minimum_nights" placeholder={{ listing[ 'minimum_nights'] }} value={{ listing[ 'minimum_nights'] }}>
-
-    <label>Availability 365 :</label>
-    <input type="number" name="availability_365" placeholder={{ listing[ 'availability_365'] }} value={{ listing[ 'availability_365'] }}>
-
-    <input type="hidden" name="user_id" value={{ listing[ 'user_id'] }}>
-
-    <button name="id" value={{ listing[ 'id'] }}>Submit</button>
-</form>
+<!-- Main -->
+<div id="main" class="alt">
+  
+  <!-- Header -->
+  <section id="one">
+    <div class="inner">
+      <header class="major">
+        <h1>Edit Listings</h1>
+      </header>
+      
+      <!-- Content -->
+      <h2 id="content"></h2>
+      <p>Edit the listings and submit</p>	
+      
+      
+      <form action="/listings/modify" method="POST">
+	
+        <div class="row gtr-uniform">
+	  
+          <div class="col-6 col-12-xsmall">
+	    <label>Listing Name:</label>
+	    <input type="text" name="name" placeholder={{ listing[ 'name'] }} value={{ listing[ 'name'] }}>
+          </div>
+	  
+          <div class="col-6 col-12-xsmall">
+	    <label>City:</label>
+	    <!-- <input type="text" name="location" placeholder="Location" value="Location"> -->
+	    
+	    <select id="city" name="city">
+              {% for city in cities %}
+              {% if city == listing['city' ]%}
+              <option value="{{city}}" selected>{{city}}</option>
+              {% else %}
+              <option value="{{city}}">{{city}}</option>
+              {% endif %}
+              {% endfor %}
+	    </select>
+          </div>
+	  
+          <div class="col-6 col-12-xsmall">
+	    <label>Neighborhood:</label>
+	    <select id="neighborhood" name="neighborhood">
+              <option disabled selected value> -- select an option -- </option>
+	    </select>
+          </div>
+	  
+          <div class="col-6 col-12-xsmall">
+	    <label>Property Type:</label>
+	    <select name="property_type">
+              {% for property_type in property_types %}
+              {% if property_type == listing['property_type'] %}
+              <option value="{{property_type}}" selected >{{property_type}}</option>
+              {% else %}
+              <option value="{{property_type}}">{{property_type}}</option>
+              {% endif %}
+              {% endfor %}
+	    </select>
+          </div>
+	  
+          <div class="col-6 col-12-xsmall">
+	    <label>Room Type:</label>
+	    <select name="room_type">
+              {% for room_type in room_types %}
+              {% if room_type == listing['room_type'] %}
+              <option value="{{room_type}}" selected >{{room_type}}</option>
+              {% else %}
+              <option value="{{room_type}}">{{room_type}}</option>
+              {% endif %}
+              {% endfor %}
+	    </select>
+          </div>
+	  
+	  
+          <div class="col-6 col-12-xsmall">
+	    <label>Minimum Nights:</label>
+	    <input type="number" name="minimum_nights" placeholder={{ listing[ 'minimum_nights'] }} value={{ listing[ 'minimum_nights'] }}>
+          </div>
+	  
+          <div class="col-6 col-12-xsmall">
+	    <label>Availability 365 :</label>
+	    <input type="number" name="availability_365" placeholder={{ listing[ 'availability_365'] }} value={{ listing[ 'availability_365'] }}>
+          </div>
+	  
+	  <input type="hidden" name="user_id" value={{ listing[ 'user_id'] }}>
+	  
+          <ul class="actions">
+            <li><button style="vertical-align: -40px;" name="id" value={{ listing[ 'id'] }} class="button primary">Submit</button></li>
+          </ul>
+	</div>
+      </form>
 
 <script type="text/javascript">
     $("document").ready(function() {
