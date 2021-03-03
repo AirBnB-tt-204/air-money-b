@@ -57,6 +57,7 @@ pandas = "*"
 seaborn = "*"
 matplotlib = "*"
 xgboost = "*"
+tensorflow = "*"
 
 [dev-packages]
 
