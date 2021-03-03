@@ -40,7 +40,7 @@ def create_user():
     if user := User.query.filter(User.name == name).first() is None:
         # create user based on the name passed via request
 
-        user = User(id=len(users)+1, name=name)
+        user = User(name=name)
         DB.session.add(user)
         DB.session.commit()
         flash(f"User {user.name} created successfully!", "success")
@@ -50,7 +50,7 @@ def create_user():
 
 @airbnb_routes.route("/listings/add", methods=["POST"])
 def add_listing():
-
+    
     user_id = request.form['user']
     user = User.query.get(user_id)
 
@@ -60,10 +60,8 @@ def add_listing():
 @airbnb_routes.route("/listings/create", methods=["POST"])
 def create_listings():
 
-    new_id = len(Listing.query.all()) + 1
-
     print(request.form)
-    listing = Listing(id=new_id, **request.form,
+    listing = Listing(**request.form,
                       price=get_optimal_pricing(**request.form))
 
     DB.session.add(listing)

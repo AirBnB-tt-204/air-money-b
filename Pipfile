@@ -56,6 +56,7 @@ py-openaq = "*"
 pandas = "*"
 seaborn = "*"
 matplotlib = "*"
+uuid = "*"
 
 [dev-packages]
 

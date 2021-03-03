@@ -1,49 +1,72 @@
 <!-- templates/add_listing.html -->
 
-{% extends "airbnb_op_layout.html" %} {% block content %}
+{% extends "airbnb_op_layout.html" %}{% block content %}
 
-<h1>New Listing Page</h1>
+<!-- Main -->
+<div id="main" class="alt">
 
-<p>Please fill out the form and submit to add a new listing for {{ user.name }}!</p>
+<!-- Header -->
+    <section id="one">
+        <div class="inner">
+            <header class="major">
+                <h1>New Listings</h1>
+            </header>
 
-<form action="/listings/create" method="POST">
+<!-- Content -->
+    <h2 id="content"></h2>
+        <p>Fill out the form and submit to add a new listing for {{ user.name }}!</p>	
+        
+        <form action="/listings/create" method="POST">
+            <div class="row gtr-uniform">
+                <div class="col-6 col-12-xsmall">
+                    <label>Listing Name:</label>
+                    <input type="text" name="name" placeholder="Listing Name">
+                </div>	
+                    
+                <div class="col-6 col-12-xsmall">
+                    <label>Location:</label>
+                    <select name="location">
+                        <option disabled selected value> -- select an option -- </option>
+                        <option value="New York City">New York City</option>
+                        <option value="Los Angeles">Los Angeles</option>                                           
+                    </select>
+                </div>
 
-    <label>Name:</label>
-    <input type="text" name="name" placeholder="Listing Name">
+                <div class="col-6 col-12-xsmall">
+                    <label>Property Type:</label>
+                    <select name="property_type">
+                        <option disabled selected value> -- select an option -- </option>
+                        <option value="Apartment">Apartment</option>
+                        <option value="House">House</option>
+                        <option value="Condominium">Condominium</option>
+                        <option value="Townhouse">Townhouse</option>
+                        <option value="Loft">Loft</option>
+                    </select>
+                </div>
 
-    <label>Location:</label>
-    <!-- <input type="text" name="location" placeholder="Location" value="Location"> -->
+                <div class="col-6 col-12-xsmall">
+                    <label>Room Type:</label>
+                    <select name="room_type">
+                        <option disabled selected value> -- select an option -- </option>
+                        <option value="Entire home/apt">Entire home/apt</option>
+                        <option value="Private room">Private room</option>
+                        <option value="Shared room">Shared room</option>
+                    </select>
+                </div>
 
-    <select name="location">
-        <option disabled selected value> -- select an option -- </option>
-         <option value="New York City">New York City</option>
-         <option value="Los Angeles">Los Angeles</option>
-    </select>
+                <div class="col-6 col-12-xsmall">
+                    <label>Min Nights:</label>
+                    <input type="number" style="background-color: transparent" name="min_nights" placeholder="1" value="1">
+                </div>
+                
 
-    <label>Property Type:</label>
-    <!-- <input type="text" name="property_type" placeholder="property type" value="property_type"> -->
-    <select name="property_type">
-        <option disabled selected value> -- select an option -- </option>
-         <option value="Apartment">Apartment</option>
-         <option value="House">House</option>
-         <option value="Condominium">Condominium</option>
-         <option value="Townhouse">Townhouse</option>
-         <option value="Loft">Loft</option>
-    </select>
+                <div></div>
 
-    <label>Room Type:</label>
-    <!-- <input type="text" name="room_type" placeholder="room_type" value="room_type"> -->
-    <select name="room_type">
-        <option disabled selected value> -- select an option -- </option>
-         <option value="Entire home/apt">Entire home/apt</option>
-         <option value="Private room">Private room</option>
-         <option value="Shared room">Shared room</option>
-    </select>
+                <ul class="actions">
+                    <li><button style="vertical-align: -40px;" name="user_id" value={{ user.id }} class="button primary">Submit</button></li>
+                </ul>
+            
+            </div>
+        </form>	
 
-    <label>Min Nights:</label>
-    <input type="number" name="min_nights" placeholder="1" value="1">
-
-
-    <button name="user_id" value={{ user.id }}>Submit</button>
-</form>
 {% endblock %}
