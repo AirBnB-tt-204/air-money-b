@@ -5,7 +5,8 @@ from flask import Blueprint, request, render_template, flash, redirect
 from .models import DB, User, Listing
 from .airbnb_optimize import OPTIMAL_PRICE_MODEL, CITY_NEIGHBORHOOD
 
-LISTING_ATTRS = ['city', 'neighborhood','property_type','room_type', 'minimum_nights', 'availability_365','price']
+LISTING_ATTRS = ['city', 'neighborhood', 'property_type',
+                 'room_type', 'minimum_nights', 'availability_365', 'price']
 
 airbnb_routes = Blueprint("airbnb_routes", __name__)
 
@@ -51,7 +52,7 @@ def create_user():
 
 @airbnb_routes.route("/listings/add", methods=["POST"])
 def add_listing():
-    
+
     user_id = request.form['user']
     user = User.query.get(user_id)
 
@@ -112,7 +113,7 @@ def delete_listings():
 
 
 def get_dict_from_listing(listing):
-    
+
     ret = {}
 
     for attr in LISTING_ATTRS:
@@ -127,7 +128,8 @@ def update_listings():
     listings = Listing.query.all()
 
     for listing in listings:
-        listing.price = OPTIMAL_PRICE_MODEL.get_optimal_pricing(**get_dict_from_listing(listing))
+        listing.price = OPTIMAL_PRICE_MODEL.get_optimal_pricing(
+            **get_dict_from_listing(listing))
 
     DB.session.commit()
 
