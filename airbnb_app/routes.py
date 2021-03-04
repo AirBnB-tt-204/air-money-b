@@ -33,8 +33,6 @@ def add_user():
 @airbnb_routes.route("/users/create", methods=["POST"])
 def create_user():
 
-    users = User.query.all()
-
     name = request.form['name']
 
     # If the user doesn't already exist add to the user table
@@ -56,15 +54,18 @@ def add_listing():
     user_id = request.form['user']
     user = User.query.get(user_id)
 
-    return render_template("add_listing.html", user=user, **CITY_NEIGHBORHOOD.listing_params)
+    return render_template("add_listing.html", user=user,
+                           **CITY_NEIGHBORHOOD.listing_params)
 
 
 @airbnb_routes.route("/listings/create", methods=["POST"])
 def create_listings():
 
     print(request.form)
-    listing = Listing(**request.form,
-                      price=OPTIMAL_PRICE_MODEL.get_optimal_pricing(**request.form))
+    listing = Listing(
+        **request.form,
+        price=OPTIMAL_PRICE_MODEL.get_optimal_pricing(**request.form)
+    )
 
     DB.session.add(listing)
     DB.session.commit()
@@ -80,7 +81,8 @@ def edit_listing():
 
     listing = Listing.query.get(listing_id)
 
-    return render_template("edit_listing.html", listing=listing, **CITY_NEIGHBORHOOD.listing_params)
+    return render_template("edit_listing.html",
+                           listing=listing, **CITY_NEIGHBORHOOD.listing_params)
 
 
 @airbnb_routes.route("/listings/modify", methods=["POST"])

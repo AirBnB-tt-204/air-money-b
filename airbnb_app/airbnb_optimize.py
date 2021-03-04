@@ -16,11 +16,13 @@ class CityNeighborhood():
         city_neighborhood_lists = {}
 
         self.listing_params = {
-            'property_types': ['Apartment', 'House', 'Condominium', 'Townhouse', 'Loft'],
+            'property_types': ['Apartment', 'House', 'Condominium',
+                               'Townhouse', 'Loft'],
             'room_types': ['Entire home/apt', 'Private room', 'Shared room']
         }
 
-        with open(path.join(path.dirname(__file__), 'city_neighborhood.csv')) as csv_file:
+        with open(path.join(path.dirname(__file__),
+                            'city_neighborhood.csv')) as csv_file:
             cities = DictReader(csv_file)
             old_limit = field_size_limit(maxsize)
 
@@ -46,7 +48,8 @@ class CityNeighborhood():
 class OptimalPriceModel():
 
     def __init__(self):
-        with open(path.join(path.dirname(__file__), 'model/nn.json'), 'r') as json_file:
+        with open(path.join(path.dirname(__file__),
+                            'model/nn.json'), 'r') as json_file:
             self.Model = model_from_json(json_file.read())
 
         self.Model.load_weights(
@@ -64,7 +67,9 @@ class OptimalPriceModel():
         cat_cols = np.array(
             [[listing['neighborhood'], listing['room_type'], listing['city']]])
         num_cols = np.array(
-            [[int(listing['availability_365']), int(listing['minimum_nights'])]])
+            [[int(listing['availability_365']),
+              int(listing['minimum_nights'])]]
+        )
 
         print(f'{cat_cols=} {num_cols=}')
 
