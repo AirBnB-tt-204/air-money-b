@@ -9,7 +9,6 @@ from dotenv import load_dotenv
 
 from .models import DB, init_db
 from .routes import airbnb_routes
-from .airbnb_optimize import init_city_neighborhood_info, init_optimal_price_model
 
 load_dotenv()
 
@@ -39,9 +38,6 @@ def create_app():
 
 APP = create_app()
 init_db(APP)
-init_city_neighborhood_info()
-init_optimal_price_model()
-
 
 if __name__ == "__main__":
 

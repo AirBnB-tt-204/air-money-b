@@ -1,7 +1,8 @@
 <!-- templates/edit_listing.html -->
 
 
-{% extends "airbnb_op_layout.html" %}{% block content %}
+{% extends "airbnb_op_layout.html" %}
+{% block content %}
 
 <!-- Main -->
 <div id="main" class="alt">
@@ -78,12 +79,12 @@
 	  
           <div class="col-6 col-12-xsmall">
 	    <label>Minimum Nights:</label>
-	    <input type="number" name="minimum_nights" placeholder={{ listing[ 'minimum_nights'] }} value={{ listing[ 'minimum_nights'] }}>
+	    <input type="number" style="background-color: transparent" name="minimum_nights" placeholder={{ listing[ 'minimum_nights'] }} value={{ listing[ 'minimum_nights'] }}>
           </div>
 	  
           <div class="col-6 col-12-xsmall">
 	    <label>Availability 365 :</label>
-	    <input type="number" name="availability_365" placeholder={{ listing[ 'availability_365'] }} value={{ listing[ 'availability_365'] }}>
+	    <input type="number" style="background-color: transparent" name="availability_365" placeholder={{ listing[ 'availability_365'] }} value={{ listing[ 'availability_365'] }}>
           </div>
 	  
 	  <input type="hidden" name="user_id" value={{ listing[ 'user_id'] }}>
@@ -93,42 +94,44 @@
           </ul>
 	</div>
       </form>
+</div></section></div>
 
-<script type="text/javascript">
-    $("document").ready(function() {
-        // Map your choices to your option value
-        var lookup = {{ city_neigh | safe }};
-        var listing_neigh = "{{ listing['neighborhood'] }}"
-
-        function render_neigh(selectValue) {
-
-            var neighs = lookup[selectValue];
-
-            console.log(selectValue)
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"> </script>
+      <script type="text/javascript">
+	$("document").ready(function() {
+            // Map your choices to your option value
+            var lookup = {{ city_neigh | safe }};
+            var listing_neigh = "{{ listing['neighborhood'] }}"
+	    
+            function render_neigh(selectValue) {
+		
+		var neighs = lookup[selectValue];
+		
+		console.log(selectValue)
                 // Empty the target field
-            $('#neighborhood').empty();
-
-            // For each chocie in the selected option
-            for (i = 0; i < neighs.length; i++) {
-                // Output choice in the target field
-                selected = ""
-                if (neighs[i] == listing_neigh)
-                    selected = "selected"
-                $('#neighborhood').append("<option value='" + lookup[selectValue][i] + "'" + selected + ">" + lookup[selectValue][i] + "</option>");
+		$('#neighborhood').empty();
+		
+		// For each chocie in the selected option
+		for (i = 0; i < neighs.length; i++) {
+                    // Output choice in the target field
+                    selected = ""
+                    if (neighs[i] == listing_neigh)
+			selected = "selected"
+                    $('#neighborhood').append("<option value='" + lookup[selectValue][i] + "'" + selected + ">" + lookup[selectValue][i] + "</option>");
+		}
             }
-        }
-        console.log(lookup)
-        console.log(listing_neigh)
-
-        var selectValue = $('#city').val();
-        render_neigh(selectValue)
-            // When an option is changed, search the above for matching choices
-        $('#city').on('change', function() {
-
-            // Set selected option as variable
-            var selectValue = $(this).val();
+            console.log(lookup)
+            console.log(listing_neigh)
+	    
+            var selectValue = $('#city').val();
             render_neigh(selectValue)
-        });
-    });
-</script>
-{% endblock %}
+            // When an option is changed, search the above for matching choices
+            $('#city').on('change', function() {
+		
+		// Set selected option as variable
+		var selectValue = $(this).val();
+		render_neigh(selectValue)
+            });
+	});
+	</script>
+      {% endblock %}

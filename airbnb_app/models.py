@@ -25,7 +25,7 @@ class Listing(DB.Model):  # listing Table
     availability_365 = DB.Column(DB.Integer, nullable=False)
     city = DB.Column(DB.String, nullable=False)
     neighborhood = DB.Column(DB.String, nullable=False)
-    price = DB.Column(DB.Float, nullable=False)
+    price = DB.Column(DB.Integer, nullable=False)
     user_id = DB.Column(DB.BigInteger,
                         DB.ForeignKey("user.id"),
                         nullable=False)  # user_id column (corresponding user)
@@ -36,8 +36,9 @@ class Listing(DB.Model):  # listing Table
 
     def __repr__(self):
         return f'<Listing: {self.name}:{self.property_type}:'\
-            '{self.room_type}:{self.min_nights}:{self.location}:'\
-            '{self.user.name}>'
+            f'{self.room_type}:{self.minimum_nights}:'\
+            f'{self.city}:{self.neighborhood}:'\
+            f'{self.availability_365}:{self.user.name}>'
 
 
 def init_db(app):
