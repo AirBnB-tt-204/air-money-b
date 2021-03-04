@@ -27,6 +27,7 @@
                                 <li>Room Type: {{ listing['room_type'] }}</li>                           
                                 <li>Minimum Nights: {{ listing['minimum_nights'] }}</li>
                                 <li>Available days of the year (0-365): {{ listing['availability_365'] }}</li>
+                                <li>Optimal Daily Rate: {{ listing['price'] }}</li>
                             </ul>
                             <form action="/listings/edit" method="POST">
                                 <button name="listing" value={{ listing[ 'id'] }}>Edit Listing</button>
