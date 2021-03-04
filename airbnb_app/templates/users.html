@@ -22,7 +22,12 @@
                         <li>{{ listing['name'] }}
                             <ul>
                                 {% for elem in listing_attrs %}
-                                <li> {{ listing[elem] }}</li>
+                                <li>City: {{ listing['city'] }}</li>
+                                <li>Neighborhood: {{ listing['neighborhood'] }}</li>
+                                <li>Property Type: {{ listing['property_type'] }}</li>
+                                <li>Room Type: {{ listing['room_type'] }}</li>                           
+                                <li>Minimum Nights {{ listing['minimum_nights'] }}</li>
+                                <li>Available days of the year (0-365): {{ listing['availability_365'] }}</li>
                                 {% endfor %}
 
                             </ul>
