@@ -1,6 +1,5 @@
 #Pipfile.lock and VScode
 .vscode
-Pipfile.lock
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
