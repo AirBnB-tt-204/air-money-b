@@ -20,11 +20,14 @@
                     <ol>
                         {% for listing in (user['listings']|sort(attribute='id')) %}
                         <li>{{ listing['name'] }}
-                            <ul>
-                                {% for elem in listing_attrs %}
-                                <li> {{ listing[elem] }}</li>
-                                {% endfor %}
-
+                            <ul>                               
+                                <li>City: {{ listing['city'] }}</li>
+                                <li>Neighborhood: {{ listing['neighborhood'] }}</li>
+                                <li>Property Type: {{ listing['property_type'] }}</li>
+                                <li>Room Type: {{ listing['room_type'] }}</li>                           
+                                <li>Minimum Nights: {{ listing['minimum_nights'] }}</li>
+                                <li>Available days of the year (0-365): {{ listing['availability_365'] }}</li>
+                                <li>Optimal Daily Rate: {{ listing['price'] }}</li>
                             </ul>
                             <form action="/listings/edit" method="POST">
                                 <button name="listing" value={{ listing[ 'id'] }}>Edit Listing</button>
@@ -35,9 +38,9 @@
                         </li>
                         {% endfor %}
                     </ol>
-                    <form action="/listings/add" method="POST">
-                        <button name="user" value={{ user[ 'id']}}>Add Listing</button>
-                    </form>
+                            <form action="/listings/add" method="POST">
+                                <button name="user" value={{ user[ 'id']}}>Add Listing</button>
+                            </form>
                 </li>
                 {% endfor %}
             </ol>
