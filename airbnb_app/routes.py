@@ -3,8 +3,9 @@ Flask routes for the airbnb app
 '''
 from flask import Blueprint, request, render_template, flash, redirect
 from .models import DB, User, Listing
-from .airbnb_optimize import get_optimal_pricing
+from .airbnb_optimize import OPTIMAL_PRICE_MODEL, CITY_NEIGHBORHOOD
 
+LISTING_ATTRS = ['city', 'neighborhood','property_type','room_type', 'minimum_nights', 'availability_365','price']
 
 airbnb_routes = Blueprint("airbnb_routes", __name__)
 
@@ -20,7 +21,7 @@ def list_users():
     users = User.query.all()
 
     return render_template("users.html", message="Users and their listings",
-                           users=users)
+                           users=users, listing_attrs=LISTING_ATTRS)
 
 
 @airbnb_routes.route("/users/add")
@@ -54,7 +55,7 @@ def add_listing():
     user_id = request.form['user']
     user = User.query.get(user_id)
 
-    return render_template("add_listing.html", user=user)
+    return render_template("add_listing.html", user=user, **CITY_NEIGHBORHOOD.listing_params)
 
 
 @airbnb_routes.route("/listings/create", methods=["POST"])
@@ -62,7 +63,7 @@ def create_listings():
 
     print(request.form)
     listing = Listing(**request.form,
-                      price=get_optimal_pricing(**request.form))
+                      price=OPTIMAL_PRICE_MODEL.get_optimal_pricing(**request.form))
 
     DB.session.add(listing)
     DB.session.commit()
@@ -77,8 +78,8 @@ def edit_listing():
     print(f'{listing_id=}')
 
     listing = Listing.query.get(listing_id)
-    print(listing)
-    return render_template("edit_listing.html", listing=listing)
+
+    return render_template("edit_listing.html", listing=listing, **CITY_NEIGHBORHOOD.listing_params)
 
 
 @airbnb_routes.route("/listings/modify", methods=["POST"])
@@ -87,14 +88,14 @@ def modify_listings():
     # Get the listing entry/row to be modified
     listing = Listing.query.get(request.form['id'])
 
-    print(listing)
+    print(listing, listing.__dict__)
 
     # Update the listing entry/row with new data from request
     for attr in request.form:
         setattr(listing, attr, request.form[attr])
 
     # Get the (potentially) new optimal listing price
-    listing.price = get_optimal_pricing(**request.form)
+    listing.price = OPTIMAL_PRICE_MODEL.get_optimal_pricing(**request.form)
 
     # Commit the changes to the DB.
     DB.session.commit()
@@ -111,12 +112,10 @@ def delete_listings():
 
 
 def get_dict_from_listing(listing):
-    attrs = ['location', 'room_type', 'name', 'id',
-             'price', 'min_nights', 'property_type', 'user_id']
-
+    
     ret = {}
 
-    for attr in attrs:
+    for attr in LISTING_ATTRS:
         ret[attr] = getattr(listing, attr)
 
     return ret
@@ -128,7 +127,7 @@ def update_listings():
     listings = Listing.query.all()
 
     for listing in listings:
-        listing.price = get_optimal_pricing(**get_dict_from_listing(listing))
+        listing.price = OPTIMAL_PRICE_MODEL.get_optimal_pricing(**get_dict_from_listing(listing))
 
     DB.session.commit()
 

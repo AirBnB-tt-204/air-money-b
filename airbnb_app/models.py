@@ -21,9 +21,11 @@ class Listing(DB.Model):  # listing Table
     name = DB.Column(DB.String, nullable=False)
     property_type = DB.Column(DB.String, nullable=False)
     room_type = DB.Column(DB.String, nullable=False)
-    min_nights = DB.Column(DB.Integer, nullable=False)
-    location = DB.Column(DB.String, nullable=False)
-    price = DB.Column(DB.Float, nullable=False)
+    minimum_nights = DB.Column(DB.Integer, nullable=False)
+    availability_365 = DB.Column(DB.Integer, nullable=False)
+    city = DB.Column(DB.String, nullable=False)
+    neighborhood = DB.Column(DB.String, nullable=False)
+    price = DB.Column(DB.Integer, nullable=False)
     user_id = DB.Column(DB.BigInteger,
                         DB.ForeignKey("user.id"),
                         nullable=False)  # user_id column (corresponding user)
@@ -34,8 +36,9 @@ class Listing(DB.Model):  # listing Table
 
     def __repr__(self):
         return f'<Listing: {self.name}:{self.property_type}:'\
-            '{self.room_type}:{self.min_nights}:{self.location}:'\
-            '{self.user.name}>'
+            f'{self.room_type}:{self.minimum_nights}:'\
+            f'{self.city}:{self.neighborhood}:'\
+            f'{self.availability_365}:{self.user.name}>'
 
 
 def init_db(app):
@@ -45,7 +48,7 @@ def init_db(app):
     with app.app_context():
         try:
             # Attempt to access the user table from the database
-            User.query.first()
+            print(User.query.first())
         except Exception as no_such_table_exception:
             # The table does not exist yet
             # We catch the generalized Exception because the

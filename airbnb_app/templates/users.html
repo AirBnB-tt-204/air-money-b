@@ -1,61 +1,57 @@
 <!-- templates/users.html -->
 
-{% extends "airbnb_op_layout.html" %}
-
-
-{% block content %}
+{% extends "airbnb_op_layout.html" %} {% block content %}
 
 <!-- Main -->
 <div id="main" class="alt">
 
     <!-- Header -->
-        <section id="one">
-            <div class="inner">
-                <header class="major">
-                    <h1>Users and Listings</h1>
-                </header>
+    <section id="one">
+        <div class="inner">
+            <header class="major">
+                <h1>Users and Listings</h1>
+            </header>
 
-                <!-- Content -->									
-                    {% if users %}
+            <!-- Content -->
+            {% if users %}
+            <ol>
+                {% for user in users %}
+                <li>{{ user['name'] }}
                     <ol>
-                        {% for user in users %}
-                        <li>{{ user['name'] }}
-                            <ol>
-                                {% for listing in (user['listings']|sort(reverse=true,attribute='id'))[:5] %}
-                                <li>{{ listing['name'] }}
-                                    <ul>
-                                        <li>{{ listing['location'] }}</li>
-                                        <li>{{ listing['property_type'] }}</li>
-                                        <li>{{ listing['room_type'] }}</li>
-                                        <li>{{ listing['min_nights'] }}</li>
-                                        <li>{{ listing['price'] }}</li>
-                                    </ul>
-                                    <form action="/listings/edit" method="POST">
-                                        <button name="listing" value={{ listing[ 'id'] }}>Edit Listing</button>
-                                    </form>
-                                    <form action="/listings/delete" method="POST">
-                                        <button name="listing" value={{ listing[ 'id'] }}>Delete Listing</button>
-                                    </form>
-                                </li>
+                        {% for listing in (user['listings']|sort(attribute='id')) %}
+                        <li>{{ listing['name'] }}
+                            <ul>
+                                {% for elem in listing_attrs %}
+                                <li> {{ listing[elem] }}</li>
                                 {% endfor %}
-                            </ol>
-                            <form action="/listings/add" method="POST">
-                                <button name="user" value={{ user[ 'id']}}>Add Listing</button>
+
+                            </ul>
+                            <form action="/listings/edit" method="POST">
+                                <button name="listing" value={{ listing[ 'id'] }}>Edit Listing</button>
+                            </form>
+                            <form action="/listings/delete" method="POST">
+                                <button name="listing" value={{ listing[ 'id'] }}>Delete Listing</button>
                             </form>
                         </li>
                         {% endfor %}
                     </ol>
-
-                    {% else %} 
-                    <p>Users not found.</p>
-                    {% endif %}
-
-                    <form action="/listings/update" method="POST">
-                        <button>Update Listings</button>
+                    <form action="/listings/add" method="POST">
+                        <button name="user" value={{ user[ 'id']}}>Add Listing</button>
                     </form>
+                </li>
+                {% endfor %}
+            </ol>
 
-            </div>
-        </section>
+            {% else %}
+            <p>Users not found.</p>
+            {% endif %}
+
+            <form action="/listings/update" method="POST">
+                <button>Update Listings</button>
+            </form>
+
+        </div>
+    </section>
 
 </div>
 

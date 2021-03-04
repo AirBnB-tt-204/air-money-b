@@ -23,50 +23,98 @@
                     <input type="text" name="name" placeholder="Listing Name">
                 </div>	
                     
+ 
                 <div class="col-6 col-12-xsmall">
-                    <label>Location:</label>
-                    <select name="location">
-                        <option disabled selected value> -- select an option -- </option>
-                        <option value="New York City">New York City</option>
-                        <option value="Los Angeles">Los Angeles</option>                                           
-                    </select>
-                </div>
+	
+		  <label>City:</label>
+		  <select id="city" name="city">
+		    <option disabled selected value> -- select an option -- </option>
+		    {% for city in cities %}
+		    <option value="{{city}}">{{city}}</option>
+		    {% endfor %}
+		  </select>
+		  </div>
 
                 <div class="col-6 col-12-xsmall">
-                    <label>Property Type:</label>
-                    <select name="property_type">
-                        <option disabled selected value> -- select an option -- </option>
-                        <option value="Apartment">Apartment</option>
-                        <option value="House">House</option>
-                        <option value="Condominium">Condominium</option>
-                        <option value="Townhouse">Townhouse</option>
-                        <option value="Loft">Loft</option>
-                    </select>
-                </div>
+		  <label>Neighborhood:</label>
+		  <select id="neighborhood" name="neighborhood">
+		    <option disabled selected value> -- select an option -- </option>
+		  </select>
+		</div>
 
                 <div class="col-6 col-12-xsmall">
-                    <label>Room Type:</label>
-                    <select name="room_type">
-                        <option disabled selected value> -- select an option -- </option>
-                        <option value="Entire home/apt">Entire home/apt</option>
-                        <option value="Private room">Private room</option>
-                        <option value="Shared room">Shared room</option>
-                    </select>
-                </div>
+		  <label>Property Type:</label>
+		  <select name="property_type">
+		    <option disabled selected value> -- select an option -- </option>
+		    {% for property_type in property_types %}
+		    <option value="{{property_type}}">{{property_type}}</option>
+		    {% endfor %}
+		  </select>
+		</div>
 
                 <div class="col-6 col-12-xsmall">
-                    <label>Min Nights:</label>
-                    <input type="number" style="background-color: transparent" name="min_nights" placeholder="1" value="1">
-                </div>
-                
+		  <label>Room Type:</label>
+		  <select name="room_type">
+		    <option disabled selected value> -- select an option -- </option>
+		    {% for room_type in room_types %}
+		    <option value="{{room_type}}">{{room_type}}</option>
+		    {% endfor %}
+		  </select>
+		</div>
 
+                <div class="col-6 col-12-xsmall">
+		  <label>Minimum Nights:</label>
+		  <input type="number" style="background-color: transparent" name="minimum_nights" placeholder="1" value="1">
+		</div>
+
+                <div class="col-6 col-12-xsmall">
+		  <label>Availability 365 :</label>
+		  <input type="number" style="background-color: transparent" name="availability_365" placeholder="365" value="365">
+		</div>
+		
                 <div></div>
-
+		
                 <ul class="actions">
-                    <li><button style="vertical-align: -40px;" name="user_id" value={{ user.id }} class="button primary">Submit</button></li>
+                  <li><button style="vertical-align: -40px;" name="user_id" value={{ user.id }} class="button primary">Submit</button></li>
                 </ul>
-            
+		
             </div>
-        </form>	
+</form>
+</div></section></div>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"> 
+	</script>
+<script type="text/javascript">
+  $("document").ready(function(){
+    // Map your choices to your option value
+    var lookup = {{ city_neigh | safe }};
 
+    function render_neigh(selectValue) {
+
+	var neighs = lookup[selectValue];
+
+	// Empty the target field
+        $('#neighborhood').empty();
+
+	// For each chocie in the selected option
+        for (i = 0; i < neighs.length; i++) {
+            // Output choice in the target field
+            $('#neighborhood').append("<option value='" + neighs[i] + "'>" + neighs[i] + "</option>");
+        }
+    }
+
+      
+    // When an option is changed, search the above for matching choices
+    $('#city').on('change', function() {
+
+        // Set selected option as variable
+        var selectValue = $(this).val();
+
+        console.log(selectValue)
+
+        render_neigh(selectValue)
+    });
+  });
+</script>
 {% endblock %}
+
+

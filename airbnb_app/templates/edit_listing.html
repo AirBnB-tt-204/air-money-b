@@ -1,72 +1,137 @@
 <!-- templates/edit_listing.html -->
 
-{% extends "airbnb_op_layout.html" %}{% block content %}
+
+{% extends "airbnb_op_layout.html" %}
+{% block content %}
 
 <!-- Main -->
 <div id="main" class="alt">
+  
+  <!-- Header -->
+  <section id="one">
+    <div class="inner">
+      <header class="major">
+        <h1>Edit Listings</h1>
+      </header>
+      
+      <!-- Content -->
+      <h2 id="content"></h2>
+      <p>Edit the listings and submit</p>	
+      
+      
+      <form action="/listings/modify" method="POST">
+	
+        <div class="row gtr-uniform">
+	  
+          <div class="col-6 col-12-xsmall">
+	    <label>Listing Name:</label>
+	    <input type="text" name="name" placeholder={{ listing[ 'name'] }} value={{ listing[ 'name'] }}>
+          </div>
+	  
+          <div class="col-6 col-12-xsmall">
+	    <label>City:</label>
+	    <!-- <input type="text" name="location" placeholder="Location" value="Location"> -->
+	    
+	    <select id="city" name="city">
+              {% for city in cities %}
+              {% if city == listing['city' ]%}
+              <option value="{{city}}" selected>{{city}}</option>
+              {% else %}
+              <option value="{{city}}">{{city}}</option>
+              {% endif %}
+              {% endfor %}
+	    </select>
+          </div>
+	  
+          <div class="col-6 col-12-xsmall">
+	    <label>Neighborhood:</label>
+	    <select id="neighborhood" name="neighborhood">
+              <option disabled selected value> -- select an option -- </option>
+	    </select>
+          </div>
+	  
+          <div class="col-6 col-12-xsmall">
+	    <label>Property Type:</label>
+	    <select name="property_type">
+              {% for property_type in property_types %}
+              {% if property_type == listing['property_type'] %}
+              <option value="{{property_type}}" selected >{{property_type}}</option>
+              {% else %}
+              <option value="{{property_type}}">{{property_type}}</option>
+              {% endif %}
+              {% endfor %}
+	    </select>
+          </div>
+	  
+          <div class="col-6 col-12-xsmall">
+	    <label>Room Type:</label>
+	    <select name="room_type">
+              {% for room_type in room_types %}
+              {% if room_type == listing['room_type'] %}
+              <option value="{{room_type}}" selected >{{room_type}}</option>
+              {% else %}
+              <option value="{{room_type}}">{{room_type}}</option>
+              {% endif %}
+              {% endfor %}
+	    </select>
+          </div>
+	  
+	  
+          <div class="col-6 col-12-xsmall">
+	    <label>Minimum Nights:</label>
+	    <input type="number" style="background-color: transparent" name="minimum_nights" placeholder={{ listing[ 'minimum_nights'] }} value={{ listing[ 'minimum_nights'] }}>
+          </div>
+	  
+          <div class="col-6 col-12-xsmall">
+	    <label>Availability 365 :</label>
+	    <input type="number" style="background-color: transparent" name="availability_365" placeholder={{ listing[ 'availability_365'] }} value={{ listing[ 'availability_365'] }}>
+          </div>
+	  
+	  <input type="hidden" name="user_id" value={{ listing[ 'user_id'] }}>
+	  
+          <ul class="actions">
+            <li><button style="vertical-align: -40px;" name="id" value={{ listing[ 'id'] }} class="button primary">Submit</button></li>
+          </ul>
+	</div>
+      </form>
+</div></section></div>
 
-    <!-- Header -->
-        <section id="one">
-            <div class="inner">
-                <header class="major">
-                    <h1>Edit Listings</h1>
-                </header>
-
-    <!-- Content -->
-        <h2 id="content"></h2>
-            <p>Edit the listings and submit</p>	
-            
-            <form action="/listings/modify" method="POST">
-
-            <div class="row gtr-uniform">
-                <div class="col-6 col-12-xsmall">
-                        <label>Listing Name:</label>
-                        <input type="text" name="name" placeholder={{ listing[ 'name'] }} value={{ listing[ 'name'] }}>	
-                </div>
-
-                <div class="col-6 col-12-xsmall">	
-                    <label>Location:</label>
-                    <select name="location">
-                        <option disabled selected value><li>{{ listing['location'] }}</li></option>
-                        <option value="New York City">New York City</option>
-                        <option value="Los Angeles">Los Angeles</option>
-                    </select>
-                </div>
-            
-                <div class="col-6 col-12-xsmall">
-                    <label>Property Type:</label>
-                    <select name="property_type">
-                        <option disabled selected value><li>{{ listing['property_type'] }}</li></option>
-                        <option value="Apartment">Apartment</option>
-                        <option value="House">House</option>
-                        <option value="Condominium">Condominium</option>
-                        <option value="Townhouse">Townhouse</option>
-                        <option value="Loft">Loft</option>
-                    </select>
-                </div>
-
-                <div class="col-6 col-12-xsmall">
-                    <label>Room Type:</label>
-                    <select name="room_type">
-                        <option disabled selected value><li>{{ listing['room_type'] }}</li></option>
-                        <option value="Entire home/apt">Entire home/apt</option>
-                        <option value="Private room">Private room</option>
-                        <option value="Shared room">Shared room</option>
-                    </select>
-                </div>
-            
-                <div class="col-6 col-12-xsmall">
-                    <label>Min Nights:</label>
-                    <input type="number" style="background-color: transparent" name="min_nights" placeholder={{ listing[ 'min_nights'] }} value={{ listing[ 'min_nights'] }}>
-                </div>
-                
-                <input type="hidden" name="user_id" value={{ listing[ 'user_id'] }}>
-            
-
-                <ul class="actions">
-                    <li><button style="vertical-align: -40px;" name="id" value={{ listing[ 'id'] }} class="button primary">Submit</button></li>
-                </ul>
-            
-            </form>
-
-{% endblock %}
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"> </script>
+      <script type="text/javascript">
+	$("document").ready(function() {
+            // Map your choices to your option value
+            var lookup = {{ city_neigh | safe }};
+            var listing_neigh = "{{ listing['neighborhood'] }}"
+	    
+            function render_neigh(selectValue) {
+		
+		var neighs = lookup[selectValue];
+		
+		console.log(selectValue)
+                // Empty the target field
+		$('#neighborhood').empty();
+		
+		// For each chocie in the selected option
+		for (i = 0; i < neighs.length; i++) {
+                    // Output choice in the target field
+                    selected = ""
+                    if (neighs[i] == listing_neigh)
+			selected = "selected"
+                    $('#neighborhood').append("<option value='" + lookup[selectValue][i] + "'" + selected + ">" + lookup[selectValue][i] + "</option>");
+		}
+            }
+            console.log(lookup)
+            console.log(listing_neigh)
+	    
+            var selectValue = $('#city').val();
+            render_neigh(selectValue)
+            // When an option is changed, search the above for matching choices
+            $('#city').on('change', function() {
+		
+		// Set selected option as variable
+		var selectValue = $(this).val();
+		render_neigh(selectValue)
+            });
+	});
+	</script>
+      {% endblock %}
