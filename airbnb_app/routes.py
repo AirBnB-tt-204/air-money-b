@@ -36,7 +36,6 @@ def create_user():
     name = request.form['name']
 
     # If the user doesn't already exist add to the user table
-    print(User.query.filter(User.name == name).first())
     if user := User.query.filter(User.name == name).first() is None:
         # create user based on the name passed via request
 
@@ -53,7 +52,6 @@ def add_listing():
 
     user_id = request.form['user']
     user = User.query.get(user_id)
-    print(LISTING_PARAMS)
 
     return render_template("add_listing.html", user=user,
                            **LISTING_PARAMS)
@@ -62,7 +60,6 @@ def add_listing():
 @airbnb_routes.route("/listings/create", methods=["POST"])
 def create_listings():
 
-    print(request.form)
     listing = Listing(
         **request.form,
         price=OPTIMAL_PRICE_MODEL.get_optimal_pricing(**request.form)
@@ -78,7 +75,6 @@ def create_listings():
 @airbnb_routes.route("/listings/edit", methods=["POST"])
 def edit_listing():
     listing_id = request.form['listing']
-    print(f'{listing_id=}')
 
     listing = Listing.query.get(listing_id)
 
@@ -92,7 +88,6 @@ def modify_listings():
     # Get the listing entry/row to be modified
     listing = Listing.query.get(request.form['id'])
 
-    print(listing, listing.__dict__)
 
     # Update the listing entry/row with new data from request
     for attr in request.form:

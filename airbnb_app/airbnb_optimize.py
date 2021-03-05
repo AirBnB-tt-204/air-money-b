@@ -80,7 +80,8 @@ class OptimalPriceModel():
     def get_optimal_pricing(self, **listing):
 
         '''
-        Given listing info returns the optimal price.
+        Computes and returns the optimal price based on
+        listing info provided.
         '''
         cat_cols = np.array(
             [[listing['neighborhood'], listing['room_type'], listing['city']]])
