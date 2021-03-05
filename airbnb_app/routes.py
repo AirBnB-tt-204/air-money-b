@@ -3,7 +3,7 @@ Flask routes for the airbnb app
 '''
 from flask import Blueprint, request, render_template, flash, redirect
 from .models import DB, User, Listing
-from .airbnb_optimize import OPTIMAL_PRICE_MODEL, CITY_NEIGHBORHOOD
+from .airbnb_optimize import OPTIMAL_PRICE_MODEL, LISTING_PARAMS
 
 LISTING_ATTRS = ['city', 'neighborhood', 'property_type',
                  'room_type', 'minimum_nights', 'availability_365', 'price']
@@ -53,9 +53,10 @@ def add_listing():
 
     user_id = request.form['user']
     user = User.query.get(user_id)
+    print(LISTING_PARAMS)
 
     return render_template("add_listing.html", user=user,
-                           **CITY_NEIGHBORHOOD.listing_params)
+                           **LISTING_PARAMS)
 
 
 @airbnb_routes.route("/listings/create", methods=["POST"])
@@ -82,7 +83,7 @@ def edit_listing():
     listing = Listing.query.get(listing_id)
 
     return render_template("edit_listing.html",
-                           listing=listing, **CITY_NEIGHBORHOOD.listing_params)
+                           listing=listing, **LISTING_PARAMS)
 
 
 @airbnb_routes.route("/listings/modify", methods=["POST"])
